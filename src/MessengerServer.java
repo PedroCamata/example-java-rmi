@@ -4,13 +4,14 @@ import java.rmi.registry.LocateRegistry;
 public class MessengerServer {
 
 	public static void main(String[] args) {
+		final String address = "rmi://localhost/MessengerService";
 		
 		try {
-			System.setProperty("java.rmi.server.hostname","192.168.0.15");
+			// RMI setup
+			System.setProperty("java.rmi.server.hostname","localhost");
 			LocateRegistry.createRegistry(1099);
-			
 			Messenger m = new MessengerImpl();
-			Naming.rebind("rmi://localhost/MessengerService", m);
+			Naming.rebind(address, m);
 		} catch(Exception e) {
 			System.out.println("Error: " + e);
 		} finally {
